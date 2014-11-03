@@ -13,7 +13,7 @@ import java.util.List;
  * Created with IntelliJ IDEA.
  * User: leolin
  * Date: 2013/11/14
- * Time: 下午7:15
+ * Time: 7:15
  * To change this template use File | Settings | File Templates.
  */
 public class ImageUtil {

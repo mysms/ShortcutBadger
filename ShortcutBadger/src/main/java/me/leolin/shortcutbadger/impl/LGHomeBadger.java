@@ -8,7 +8,7 @@ import me.leolin.shortcutbadger.ShortcutBadger;
  * Created with IntelliJ IDEA.
  * User: leolin
  * Date: 2013/11/14
- * Time: 下午5:55
+ * Time: 5:55
  * To change this template use File | Settings | File Templates.
  */
 public class LGHomeBadger extends ShortcutBadger {

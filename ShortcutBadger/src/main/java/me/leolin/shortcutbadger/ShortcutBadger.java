@@ -11,7 +11,7 @@ import me.leolin.shortcutbadger.impl.*;
  * Created with IntelliJ IDEA.
  * User: leolin
  * Date: 2013/11/14
- * Time: 下午5:51
+ * Time: 5:51
  * To change this template use File | Settings | File Templates.
  */
 public abstract class ShortcutBadger {
@@ -22,14 +22,12 @@ public abstract class ShortcutBadger {
     private static final String HOME_PACKAGE_ANDROID = "com.android.launcher";
 
 
-    private static final String MESSAGE_NOT_SUPPORT_BADGE_COUNT = "ShortBadger is currently not support the badgeCount \"%d\"";
     private static final String MESSAGE_NOT_SUPPORT_THIS_HOME = "ShortcutBadger is currently not support the home launcher package \"%s\"";
 
     private static final int MIN_BADGE_COUNT = 0;
     private static final int MAX_BADGE_COUNT = 99;
 
-    private ShortcutBadger() {
-    }
+    private ShortcutBadger() {}
 
     protected Context mContext;
 
@@ -37,14 +35,9 @@ public abstract class ShortcutBadger {
         this.mContext = context;
     }
 
-    protected abstract void executeBadge(int badgeCount) throws ShortcutBadgeException;
+    protected abstract void executeBadge(final int badgeCount) throws ShortcutBadgeException;
 
-    public static void setBadge(Context context, int badgeCount) throws ShortcutBadgeException {
-        //badgeCount should between 0 to 99
-        if (badgeCount < MIN_BADGE_COUNT || badgeCount > MAX_BADGE_COUNT) {
-            String exceptionMessage = String.format(MESSAGE_NOT_SUPPORT_BADGE_COUNT, badgeCount);
-            throw new ShortcutBadgeException(exceptionMessage);
-        }
+    public static void setBadge(final Context context, final int badgeCount) throws ShortcutBadgeException {
 
         //find the home launcher Package
         Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -61,8 +54,7 @@ public abstract class ShortcutBadger {
         } else if (HOME_PACKAGE_LG.equals(currentHomePackage)) {
             mShortcutBadger = new LGHomeBadger(context);
         } else if (HOME_PACKAGE_HTC.equals(currentHomePackage)) {
-//            mShortcutBadger = new hTCHomeBadger(context);
-            mShortcutBadger = new NewHtcHomeBadger(context);
+            mShortcutBadger = new HtcHomeBadger(context);
         } else if (HOME_PACKAGE_ANDROID.equals(currentHomePackage)) {
             mShortcutBadger = new AndroidHomeBadger(context);
         }
@@ -73,7 +65,7 @@ public abstract class ShortcutBadger {
             throw new ShortcutBadgeException(exceptionMessage);
         }
         try {
-            mShortcutBadger.executeBadge(badgeCount);
+            mShortcutBadger.executeBadge(Math.min(Math.max(badgeCount, MIN_BADGE_COUNT), MAX_BADGE_COUNT));
         } catch (Throwable e) {
             throw new ShortcutBadgeException("Unable to execute badge:" + e.getMessage());
         }

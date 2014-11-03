@@ -9,7 +9,7 @@ import me.leolin.shortcutbadger.ShortcutBadger;
 /**
  * @author Leolin
  */
-public class NewHtcHomeBadger extends ShortcutBadger {
+public class HtcHomeBadger extends ShortcutBadger {
 
     public static final String INTENT_UPDATE_SHORTCUT = "com.htc.launcher.action.UPDATE_SHORTCUT";
     public static final String INTENT_SET_NOTIFICATION = "com.htc.launcher.action.SET_NOTIFICATION";
@@ -18,7 +18,7 @@ public class NewHtcHomeBadger extends ShortcutBadger {
     public static final String EXTRA_COMPONENT = "com.htc.launcher.extra.COMPONENT";
     public static final String EXTRA_COUNT = "com.htc.launcher.extra.COUNT";
 
-    public NewHtcHomeBadger(Context context) {
+    public HtcHomeBadger(Context context) {
         super(context);
     }
 
