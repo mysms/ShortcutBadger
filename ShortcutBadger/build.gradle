@@ -1,4 +1,4 @@
-apply plugin: 'android-library'
+apply plugin: 'com.android.library'
 apply plugin: 'maven'
 group = 'me.leolin'
 version = '1.0.1'
@@ -6,29 +6,39 @@ version = '1.0.1'
 
 android {
 
-    compileSdkVersion 19
+    compileSdkVersion 21
     buildToolsVersion "20.0.0"
 
     defaultConfig {
         applicationId 'me.leolin.shortcutbadger'
         minSdkVersion 8
-        targetSdkVersion 19
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
     }
     buildTypes {
         release {
-            runProguard false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
 }
 
+if (!hasProperty('uploadRepositoryUri')) project.ext.uploadRepositoryUri = ''
+if (!hasProperty('uploadSnapshotRepositoryUri')) project.ext.uploadSnapshotRepositoryUri = 'file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath
+if (!hasProperty('uploadUser')) project.ext.uploadUser = ''
+if (!hasProperty('uploadPassword')) project.ext.uploadPassword = ''
+
 uploadArchives {
     repositories {
         mavenDeployer {
-            repository(url: 'file://' + project.rootDir + '/ShortcutBadger-aar')
+            repository(url: uri(uploadRepositoryUri)) {
+                authentication(userName: uploadUser, password: uploadPassword)
+            }
+            snapshotRepository(url: uri(uploadSnapshotRepositoryUri)) {
+                authentication(userName: uploadUser, password: uploadPassword)
+            }
         }
     }
 }
