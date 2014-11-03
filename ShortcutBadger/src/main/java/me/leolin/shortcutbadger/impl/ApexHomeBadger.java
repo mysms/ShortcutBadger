@@ -12,10 +12,10 @@ import me.leolin.shortcutbadger.ShortcutBadger;
  */
 public class ApexHomeBadger extends ShortcutBadger {
 
-    public static final String INTENT_UPDATE_COUNTER = "com.anddoes.launcher.COUNTER_CHANGED";
-    public static final String PACKAGENAME = "package";
-    public static final String COUNT = "count";
-    public static final String CLASS = "class";
+    private static final String INTENT_UPDATE_COUNTER = "com.anddoes.launcher.COUNTER_CHANGED";
+    private static final String PACKAGENAME = "package";
+    private static final String COUNT = "count";
+    private static final String CLASS = "class";
 
     public ApexHomeBadger(Context context) {
         super(context);
@@ -24,15 +24,10 @@ public class ApexHomeBadger extends ShortcutBadger {
     @Override
     protected void executeBadge(int badgeCount) throws ShortcutBadgeException {
 
-        String packageName = getContextPackageName();
-
-        PackageManager packageManager = mContext.getPackageManager();
-        String className = packageManager.getLaunchIntentForPackage(packageName).getComponent().getClassName();
-
         Intent intent = new Intent(INTENT_UPDATE_COUNTER);
-        intent.putExtra(PACKAGENAME, packageName);
+        intent.putExtra(PACKAGENAME, getContextPackageName());
         intent.putExtra(COUNT, badgeCount);
-        intent.putExtra(CLASS, className);
+        intent.putExtra(CLASS, getEntryActivityName());
         mContext.sendBroadcast(intent);
     }
 }
