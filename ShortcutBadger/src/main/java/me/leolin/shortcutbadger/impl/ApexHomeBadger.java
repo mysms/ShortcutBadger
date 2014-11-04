@@ -2,7 +2,6 @@ package me.leolin.shortcutbadger.impl;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 
 import me.leolin.shortcutbadger.ShortcutBadgeException;
 import me.leolin.shortcutbadger.ShortcutBadger;
